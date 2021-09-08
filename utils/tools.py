@@ -4,7 +4,7 @@ import torch
 def adjust_learning_rate(optimizer, epoch, args):
     # lr = args.learning_rate * (0.2 ** (epoch // 2))
     if args.lradj=='type1':
-        lr_adjust = {epoch: args.lr * int(0.8 **(epoch//100))}
+        lr_adjust = {epoch: args.lr * int(0.5 **(epoch//300))}
     elif args.lradj=='type2':
         lr_adjust = {
             100: 1.5e-4, 180:1.4e-5,400:1.35e-4

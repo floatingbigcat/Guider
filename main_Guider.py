@@ -13,11 +13,11 @@ from math import sqrt
 #from exp import train
 
 
-
+data_name='HSD'
 parser = argparse.ArgumentParser(description='Guider Time series forecasting')
 parser.add_argument('--data', type=str, default='data/HSD_onehot.npy',
                     help='location of the data file')
-parser.add_argument('--hier_data', type=str, default='data/HSD_H_type.npy',
+parser.add_argument('--hier_data', type=str, default='data/HSD_H_dept.npy',
                     help='location of the data file')
 # parser.add_argument('--save', type=str, default='model_save/model_Guider.pt',
 #                     help='location of the model save')
@@ -25,12 +25,12 @@ parser.add_argument('--pre_hier', type=bool, default=True,#r'/export/Martin/Guid
                     help='True->selflearned,hier False->none hier')
 parser.add_argument('--hier',type=bool,default=True,help='with hier or not')
 parser.add_argument('--next_nodes_num',type=int,default=7,help='number of nodes after pooled')
-parser.add_argument('--num_nodes',type=int,default=2247,help='number of nodes/variables')
+parser.add_argument('--num_nodes',type=int,default=305,help='number of nodes/variables')
 parser.add_argument('--d_model',type=int,default=14,help='input dimension')
-parser.add_argument('--seq_in',type=int,default=96,help='input sequence length')
-parser.add_argument('--seq_out',type=int,default=48,help='output sequence length')
+parser.add_argument('--seq_in',type=int,default=12,help='input sequence length')
+parser.add_argument('--seq_out',type=int,default=3,help='output sequence length')
 parser.add_argument('--batch_size',type=int,default=16,help='batch size')
-parser.add_argument('--lr',type=float,default=5e-5,help='learning rate')
+parser.add_argument('--lr',type=float,default=2e-5,help='learning rate')
 parser.add_argument('--lradj',type=str,default='type3',help='learning rate')
 parser.add_argument('--n_heads',type=int,default=4,help='mult_head attentions')
 parser.add_argument('--e_layer', type=int, default=1, help='num of encoder layers')
@@ -46,7 +46,7 @@ args = parser.parse_args()
 device = torch.device(args.device)
 
 # result_path = 'compare/compare_e_layers/'+str(args.e_layer)
-result_path='result_LZ/'
+result_path='result/'+data_name+'_result/'+str(args.lr)+'/'
 def train(Data,model, criterion, optimizer, batch_size):
     model.train()
 
