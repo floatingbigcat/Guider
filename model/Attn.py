@@ -1,9 +1,11 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import numpy as np
+import torch.nn as nn
 from math import sqrt
-
+"""
+Original source: https://github.com/zhouhaoyi/Informer2020
+Copyright: 2020 zhouhaoyi
+"""
 class ProbMask():
     def __init__(self, B, H, L, index, scores, device="cuda:0"):
         _mask = torch.ones(L, scores.shape[-1], dtype=torch.bool).to(device).triu(1)
@@ -185,13 +187,3 @@ class Attention(nn.Module):
             out = out.transpose(2,1).contiguous()
         out = out.view(B, L, -1)
         return self.out_projection(out), attn
-
-        
-
-if __name__ == '__main__':
-    x = torch.rand(8,11,96,40)
-   
-    #attention, d_model, n_heads,
-    m = Attention(FullAttention,d_model=40,n_heads=4)
-    output = m (x,x,x,None)
-    print(output.shape)
